@@ -21,15 +21,15 @@ You can run sample request with postman:
 
 
 ### Get short messages for the consumer key
-Returns [ShortMessages](./blob/master/Models/ShortMessages.cs) for the passed `String consumerKey`
+Returns [ShortMessages](./Models/ShortMessages.cs) for the passed `String consumerKey`
 
 The url schema: `// GET api/ShortMessages/{consumerkey}`
 
 
 ### Post a new short message
 You can post new short messages via this method. It expects a 
-[IncomingShortMessageModel](./blob/master/Models/IncomingShortMessageModel.cs).
-It returns the currently saved [ShortMessageModel](./blob/master/Models/ShortMessageModel.cs).
+[IncomingShortMessageModel](./Models/IncomingShortMessageModel.cs).
+It returns the currently saved [ShortMessageModel](./Models/ShortMessageModel.cs).
 
 
 The url schema: `// POST api/ShortMessages`
