@@ -18,29 +18,30 @@ namespace simplewebapi.Controllers
         
         // GET api/ShortMessages/{consumerkey}
         [HttpGet("{consumerkey}")]
-        public IActionResult Get(String consumerkey)
+        public ShortMessages Get(String consumerkey)
         {
+            var shortMessages = new ShortMessages();
+            
             if(string.IsNullOrEmpty(consumerkey)) {
-                return Json(new List<ShortMessages>());
+                return shortMessages;
             }
             
             var allShortMessages = valueRepository.GetAll(consumerkey);
-            
-            var shortMessages = new ShortMessages();
+        
             if(allShortMessages != null) {
                 shortMessages.Messages = allShortMessages
                     .OrderByDescending(value => value.Created).ToList();
             }
             
-            return Json(shortMessages);
+            return shortMessages;
         }
 
         // POST api/ShortMessages
         [HttpPost]
-        public IActionResult Post([FromBody]IncomingShortMessageModel incomingMessage)
+        public ShortMessageModel Post([FromBody]IncomingShortMessageModel incomingMessage)
         {
             if(incomingMessage == null) {
-                return Json(new ShortMessageModel());
+                return new ShortMessageModel();
             }
                 
             ShortMessageModel shortMessageModel = new ShortMessageModel() {
@@ -66,7 +67,7 @@ namespace simplewebapi.Controllers
                 }
             }
 
-            return Json(shortMessageModel);
+            return shortMessageModel;
         }
     }
 }
