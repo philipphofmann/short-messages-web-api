@@ -37,10 +37,10 @@ namespace simplewebapi.Controllers
 
         // POST api/ShortMessages
         [HttpPost]
-        public void Post([FromBody]IncomingShortMessageModel incomingMessage)
+        public IActionResult Post([FromBody]IncomingShortMessageModel incomingMessage)
         {
             if(incomingMessage == null) {
-                return;
+                return Json(new ShortMessageModel());
             }
                 
             ShortMessageModel shortMessageModel = new ShortMessageModel() {
@@ -65,6 +65,8 @@ namespace simplewebapi.Controllers
                     valueRepository.Update(consumer);
                 }
             }
+
+            return Json(shortMessageModel);
         }
     }
 }
