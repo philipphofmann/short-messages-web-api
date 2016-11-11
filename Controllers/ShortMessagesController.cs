@@ -8,44 +8,63 @@ using simplewebapi.Repositories;
 namespace simplewebapi.Controllers
 {
     [Route("api/[controller]")]
-    public class ShortMessageController : Controller
+    public class ShortMessagesController : Controller
     {
-        private IShortMessageRepository valueRepository;
-        private static readonly String CONSUMER_KEY = "key";
-        private static readonly String CONSUMER_SECRET = "secret";
+        private IConsumerRepository valueRepository;
 
-        public ShortMessageController(IShortMessageRepository valueRepository) {
+        public ShortMessagesController(IConsumerRepository valueRepository) {
             this.valueRepository = valueRepository;
         }
         
-        // GET api/values
-        [HttpGet]
-        public IActionResult Get()
+        // GET api/ShortMessages/{consumerkey}
+        [HttpGet("{consumerkey}")]
+        public IActionResult Get(String consumerkey)
         {
-            var allShortMessages = valueRepository.GetAll();
+            if(string.IsNullOrEmpty(consumerkey)) {
+                return Json(new List<ShortMessages>());
+            }
+            
+            var allShortMessages = valueRepository.GetAll(consumerkey);
             
             var shortMessages = new ShortMessages();
             if(allShortMessages != null) {
-                shortMessages.Messages = allShortMessages.ToList();
+                shortMessages.Messages = allShortMessages
+                    .OrderByDescending(value => value.Created).ToList();
             }
             
             return Json(shortMessages);
         }
 
-        // POST api/values
+        // POST api/ShortMessages
         [HttpPost]
         public void Post([FromBody]IncomingShortMessageModel incomingMessage)
         {
-            if(incomingMessage != null && incomingMessage.ConsumerKey == CONSUMER_KEY
-                    && incomingMessage.ConsumerSecret == CONSUMER_SECRET) {
-
-                ShortMessageModel shortMessageModel = new ShortMessageModel() {
-                    Created = DateTime.Now,
-                    Text = incomingMessage.Text
-                };
+            if(incomingMessage == null) {
+                return;
+            }
                 
-                valueRepository.Add(shortMessageModel);
-            }  
+            ShortMessageModel shortMessageModel = new ShortMessageModel() {
+                Created = DateTime.Now,
+                Text = incomingMessage.Text
+            };
+
+            var consumer = valueRepository.Get(incomingMessage.ConsumerKey);
+
+            //Consumer does not exist
+            if(consumer == null) {
+                consumer = new ConsumerModel();
+                consumer.Key = incomingMessage.ConsumerKey;
+                consumer.Secret = incomingMessage.ConsumerSecret;
+
+                consumer.ShortMessages.Add(shortMessageModel);
+                valueRepository.Update(consumer);
+            } else {
+                //Consumer already exists, check secret
+                if(consumer.Secret == incomingMessage.ConsumerSecret) {
+                    consumer.ShortMessages.Add(shortMessageModel);
+                    valueRepository.Update(consumer);
+                }
+            }
         }
     }
 }

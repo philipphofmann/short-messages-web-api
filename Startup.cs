@@ -31,7 +31,7 @@ namespace simplewebapi
             // Add framework services.
             services.AddMvc();
 
-            services.AddSingleton<IShortMessageRepository, MemoryShortMessageRepository>();
+            services.AddSingleton<IConsumerRepository, MemoryConsumerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
