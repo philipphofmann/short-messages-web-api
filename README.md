@@ -3,7 +3,7 @@
 This simple web API is designed for the course "Sicherheit von Netwerken und mobilen Applikationen"
 on the University of Applied Sciences Technikum Wien.
 
-You can reach the API at: [http://simple-web-api.azurewebsites.net/](http://simple-web-api.azurewebsites.net/)
+You can reach the API at: [https://simple-web-api.azurewebsites.net/](https://simple-web-api.azurewebsites.net/)
 
 ## The API
 The Web API provides two methods, get and post. A client can post one or 
@@ -18,7 +18,7 @@ You can run sample request with postman:
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/0a26a4bf47d3c7eaa934)
 
-
+In folder [/java](./java/)  You can find Java example classes for the use of this API with Retrofit and GSON.
 
 ### Get short messages for the consumer key
 Returns [ShortMessages](./Models/ShortMessages.cs) for the passed `String consumerKey`
@@ -33,6 +33,7 @@ It returns the currently saved [ShortMessageModel](./Models/ShortMessageModel.cs
 
 
 The url schema: `// POST api/ShortMessages`
+
 
 
 
