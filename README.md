@@ -5,6 +5,8 @@ on the University of Applied Sciences Technikum Wien.
 
 You can reach the API at: [https://simple-web-api.azurewebsites.net/](https://simple-web-api.azurewebsites.net/)
 
+Or you can view the API with Swagger: [https://simple-web-api.azurewebsites.net/swagger/ui/index.html#/ShortMessages](https://simple-web-api.azurewebsites.net/swagger/ui/index.html#/ShortMessages)
+
 ## The API
 The Web API provides two methods, get and post. A client can post one or 
 several ShortMessages via POST. Via GET he can access all his posted ShortMessages. 
