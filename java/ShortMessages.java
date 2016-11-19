@@ -1,13 +1,14 @@
-package muffls.android.shortmessageswebapi.provider.models;
+package muffls.android.shortmessageswebapi;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
-* Model for GSON
-*/
 public class ShortMessages {
-    List<ShortMessageModel> messages = new ArrayList<>();
+
+    @SerializedName("messages")
+    private List<ShortMessageModel> messages = new ArrayList<>();
 
     public ShortMessages() {
         //required for GSON
@@ -22,7 +23,5 @@ public class ShortMessages {
     public void setMessages(List<ShortMessageModel> messages) {
         this.messages = messages;
     }
-
-
     //endregion
 }

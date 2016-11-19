@@ -1,4 +1,4 @@
-package muffls.android.shortmessageswebapi.provider;
+package muffls.android.shortmessageswebapi;
 
 import muffls.android.shortmessageswebapi.provider.models.SendShortMessageModel;
 import muffls.android.shortmessageswebapi.provider.models.ShortMessageModel;

@@ -1,13 +1,14 @@
-package muffls.android.shortmessageswebapi.provider.models;
+package muffls.android.shortmessageswebapi;
 
-/**
-* Model for GSON
-*/
+import com.google.gson.annotations.SerializedName;
+
 public class ShortMessageModel {
 
-    String created;
+    @SerializedName("created")
+    private String created;
 
-    String text;
+    @SerializedName("text")
+    private String text;
 
     public ShortMessageModel() {
         //Required for GSON
